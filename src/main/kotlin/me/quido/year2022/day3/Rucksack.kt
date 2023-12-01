@@ -10,11 +10,12 @@ class Rucksack(contents: String) {
         compartmentB = contents.substring(ruckSackSeparator, contents.length).toSet()
     }
 
-    fun fixPriority(): Int = wronglyPlacedItems().sumOf { item -> itemPriority(item) }
+    fun fixPriority(): Int =
+        wronglyPlacedItems().sumOf { item -> itemPriority(item) }
 
-    private fun wronglyPlacedItems(): Set<Char> {
-        return compartmentA.intersect(compartmentB)
-    }
+    private fun wronglyPlacedItems(): Set<Char> =
+        compartmentA.intersect(compartmentB)
+
 
     private fun itemPriority(item: Char): Int =
         when (item.isUpperCase()) {
