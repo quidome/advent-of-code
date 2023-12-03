@@ -16,13 +16,15 @@ enum class Number {
     NINE
 }
 
+
 class Trebuchet : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
-        val regularInput = input.map{ it.filter { it.isDigit()}}
+        val regularInput = input.map { it -> it.filter { it.isDigit() } }
         val cleanedInput = cleanCalibrationInput(input.nonBlank())
 
         return calibration(regularInput) to calibration(cleanedInput)
     }
+
 
     private fun calibration(calibrationInput: List<String>): Int {
         var calibrationValuesTotal = 0
@@ -33,7 +35,7 @@ class Trebuchet : Solver() {
             if (digits.isNotEmpty()) {
                 val firstDigit = digits.first().digitToInt()
                 val lastDigit = digits.last().digitToInt()
-                calibrationValuesTotal += lastDigit + firstDigit * 10
+                calibrationValuesTotal += firstDigit * 10 + lastDigit
             }
         }
         return calibrationValuesTotal
@@ -44,6 +46,7 @@ class Trebuchet : Solver() {
         return calibrationInput.map { replaceWords(it) }
     }
 
+
     private fun replaceWords(calibrationLine: String): String {
         val digits = HashMap<Int, Int>()
 
@@ -51,18 +54,20 @@ class Trebuchet : Solver() {
             val indexes = calibrationLine.indexesOf(numberAsWord.toString()).toMutableList()
             indexes += calibrationLine.indexesOf(numberAsWord.ordinal.toString())
             for (index in indexes) {
-                digits.put(index, numberAsWord.ordinal)
+                digits[index] = numberAsWord.ordinal
             }
         }
         return digits.toSortedMap().values.joinToString()
     }
 
+
     private fun ignoreCaseOpt(ignoreCase: Boolean) =
         if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
 
+
     private fun String?.indexesOf(pat: String, ignoreCase: Boolean = true): List<Int> =
         pat.toRegex(ignoreCaseOpt(ignoreCase))
-            .findAll(this?: "")
+            .findAll(this ?: "")
             .map { it.range.first }
             .toList()
 }

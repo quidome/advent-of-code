@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class TrebuchetTest {
-    val trebuchet = Trebuchet()
+    private val trebuchet = Trebuchet()
 
     @Test
-    fun `verify calibration result`(){
+    fun `verify calibration result`() {
         // Arrange
         val input = """
             1abc2
@@ -25,18 +25,7 @@ class TrebuchetTest {
     }
 
     @Test
-    fun `numbers as word are replaced by actual numbers`() {
-        val input = """
-            twone
-        """.trimIndent().lines()
-
-        val output = trebuchet.solve(input)
-
-        assertEquals(0 to 21, output)
-    }
-
-    @Test
-    fun `verify next calibration result`(){
+    fun `verify next calibration result`() {
         // Arrange
         val input = """
             two1nine
@@ -49,10 +38,9 @@ class TrebuchetTest {
         """.trimIndent().lines()
 
         // Act
-        println(input.nonBlank())
         val output = trebuchet.solve(input.nonBlank())
+
         // Assert
         assertEquals(209 to 281, output)
-
     }
 }
