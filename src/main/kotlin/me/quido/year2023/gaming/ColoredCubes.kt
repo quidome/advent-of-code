@@ -34,25 +34,27 @@ class ColoredCubes : Solver() {
     // TODO: now this is a nested mess, you should have seen what it looked like
     //          before I refactored it.
     private fun possibleGames(line: String): Int {
-        val (gameInfo, turns) = line.split(":")
-        val gameId = gameInfo.split(" ").last().toInt()
-        for (turn in turns.split(";")) {
-            for (cube in turn.split(",")) {
-                val (amount, color) = cube.trim().split(" ")
-                if (amount.toInt() > cubeThresholds.get(color)!!) {
-                    return 0
-                }
+        val (gameId, turns) = line.substring(5).split(":")
+
+        val colorMax = maxPerColor(turns)
+
+        for (color in colorMax.keys) {
+            if (colorMax.get(color)!! > cubeThresholds.get(color)!!) {
+                return 0
             }
         }
-        return gameId
+        return gameId.toInt()
     }
 
-
-    // TODO: this is already so much better than what I did before
-    //  and it made me understand how to refactor `possibleGames` , win!
     private fun minimalRequiredCubes(line: String): Int {
-        val colorMax = mutableMapOf<String, Int>("red" to 0, "green" to 0, "blue" to 0)
+        val colorMax = maxPerColor(line)
 
+        // TODO: check this part out, I copied it from the web
+        return colorMax.values.reduce { acc, i -> acc * i }
+    }
+
+    private fun maxPerColor(line:String): Map<String, Int> {
+        val colorMax = mutableMapOf<String, Int>("red" to 0, "green" to 0, "blue" to 0)
         val cubesRegex = """(?<amount>\d+)\s(?<color>red|green|blue)""".toRegex()
         var cubesResult = cubesRegex.find(line)
         while (cubesResult != null) {
@@ -65,7 +67,6 @@ class ColoredCubes : Solver() {
             cubesResult = cubesResult.next()
         }
 
-        // TODO: check this part out, I copied it from the web
-        return colorMax.values.reduce { acc, i -> acc * i }
+        return colorMax
     }
 }
