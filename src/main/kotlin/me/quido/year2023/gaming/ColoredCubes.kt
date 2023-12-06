@@ -44,12 +44,8 @@ class ColoredCubes : Solver() {
         return gameId.toInt()
     }
 
-    private fun minimalRequiredCubes(line: String): Int {
-        val colorMax = maxPerColor(line)
-
-        // TODO: check this part out, I copied it from the web
-        return colorMax.values.reduce { acc, i -> acc * i }
-    }
+    private fun minimalRequiredCubes(line: String): Int =
+        maxPerColor(line).values.reduce { acc, colorMax -> acc * colorMax }
 
     private fun maxPerColor(line:String): Map<String, Int> {
         val colorMax = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
