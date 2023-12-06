@@ -3,7 +3,6 @@ package me.quido.year2023.gaming
 import me.quido.util.Solver
 import me.quido.util.nonBlank
 
-private val cubeThresholds = mapOf("red" to 12, "green" to 13, "blue" to 14)
 
 class ColoredCubes : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
@@ -27,19 +26,18 @@ class ColoredCubes : Solver() {
         */
         val gamesList = input.nonBlank()
 
-        return gamesList.map { possibleGames(it) }.sum() to
-                gamesList.map { minimalRequiredCubes(it) }.sum()
+        return gamesList.sumOf { possibleGames(it) } to
+                gamesList.sumOf { minimalRequiredCubes(it) }
     }
 
-    // TODO: now this is a nested mess, you should have seen what it looked like
-    //          before I refactored it.
     private fun possibleGames(line: String): Int {
+        val cubeThresholds = mapOf("red" to 12, "green" to 13, "blue" to 14)
         val (gameId, turns) = line.substring(5).split(":")
 
         val colorMax = maxPerColor(turns)
 
         for (color in colorMax.keys) {
-            if (colorMax.get(color)!! > cubeThresholds.get(color)!!) {
+            if (colorMax[color]!! > cubeThresholds[color]!!) {
                 return 0
             }
         }
@@ -54,15 +52,15 @@ class ColoredCubes : Solver() {
     }
 
     private fun maxPerColor(line:String): Map<String, Int> {
-        val colorMax = mutableMapOf<String, Int>("red" to 0, "green" to 0, "blue" to 0)
+        val colorMax = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
         val cubesRegex = """(?<amount>\d+)\s(?<color>red|green|blue)""".toRegex()
         var cubesResult = cubesRegex.find(line)
         while (cubesResult != null) {
             val color = cubesResult.groups["color"]?.value.toString()
             val amount = cubesResult.groups["amount"]?.value?.toInt()
 
-            if (amount != null && amount > colorMax.get(color)!!) {
-                colorMax.put(color, amount)
+            if (amount != null && amount > colorMax[color]!!) {
+                colorMax[color] = amount
             }
             cubesResult = cubesResult.next()
         }
