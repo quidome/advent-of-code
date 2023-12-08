@@ -3,6 +3,9 @@ package me.quido.year2023.engineering
 import me.quido.util.Solver
 import me.quido.util.nonBlank
 
+val numbersRegex = """(\d+)""".toRegex()
+val symbolRegex = """[^\d.]""".toRegex()
+
 class Gondola : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
 
@@ -10,30 +13,19 @@ class Gondola : Solver() {
     }
 
     private fun findPartNumbers(input: List<String>): Int {
-        var returnValue = 0
-        val maxLineIndex = input.size - 1
-        val numbersRegex = """(\d+)""".toRegex()
-
-        input.forEachIndexed { index, line ->
-            val lineRange = (index - 1).coerceAtLeast(0)..(index + 1).coerceAtMost(maxLineIndex)
-            var matchResult = numbersRegex.find(line)
-
-            while (matchResult != null) {
-                val checkRange =
-                    (matchResult.range.first - 1).coerceAtLeast(0)..(matchResult.range.last + 1).coerceAtMost(line.length - 1)
-
-                if (isEnginePart(input.subList(lineRange.first, lineRange.last + 1), checkRange)) {
-                    returnValue += matchResult.value.toInt()
-                }
-                matchResult = matchResult.next()
-            }
-
+        val numbers = input.flatMapIndexed { index, line ->
+            val lineRange = growBoundedRange(index..index, input.lastIndex)
+            numbersRegex.findAll(line)
+                .filter { isEnginePart(input.slice(lineRange), it.range) }
+                .map { it.value.toInt() }
         }
-        return returnValue
+
+        return numbers.sum()
     }
 
-    private fun isEnginePart(lines: List<String>, checkRange: IntRange): Boolean {
-        lines.forEach { if (""".*[^\d.].*""".toRegex().containsMatchIn(it.substring(checkRange))) return true }
-        return false
-    }
+    private fun growBoundedRange(range: IntRange, max: Int) =
+        (range.first - 1).coerceAtLeast(0)..(range.last + 1).coerceAtMost(max)
+
+    private fun isEnginePart(lines: List<String>, checkRange: IntRange) =
+        lines.any { symbolRegex.containsMatchIn(it.substring(growBoundedRange(checkRange, it.lastIndex))) }
 }
