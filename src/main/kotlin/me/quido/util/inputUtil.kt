@@ -1,8 +1,7 @@
 package me.quido.util
 
 fun getInputAsText(year: Int, day: Int): String? =
-    object {}.javaClass.getResource("/input/year$year/day${day}.txt")?.readText()?.trimEnd()
-
+    object {}.javaClass.getResource("/input/$year/day${day}.txt")?.readText()?.trimEnd()
 
 fun Any.readFile(fileName: String, year: Int) =
     javaClass.getResource("/input/$year/$fileName")?.readText()?.lines()
