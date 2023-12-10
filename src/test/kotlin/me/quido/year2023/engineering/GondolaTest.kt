@@ -20,7 +20,7 @@ class GondolaTest {
             ...$.*....
             .664.598..
         """.trimIndent().lines()
-        val expected = 4361 to 0
+        val expected = 4361 to 467835
 
         val output = gondola.solve(input)
 
