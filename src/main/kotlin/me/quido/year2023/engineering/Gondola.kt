@@ -7,8 +7,8 @@ val numbersRegex = """\d+""".toRegex()
 val partsRegex = """[^\d.]""".toRegex()
 
 data class Coordinate(
-    val x: Int,
-    val y: Int,
+    val row: Int,
+    val column: Int,
 )
 
 data class EnginePart(
@@ -21,24 +21,23 @@ data class EnginePart(
 
 data class PartNumber(
     val coordinate: Coordinate,
-    val number: String,
+    val number: Int,
 ) {
-    private fun range() = coordinate.y..coordinate.y + number.lastIndex
-    fun value() = number.toInt()
-    fun touches(gridLimits: Coordinate): List<Coordinate> {
-        val coordinates: MutableList<Coordinate> = mutableListOf()
-        for (row in
-        growBoundedRange(coordinate.x..coordinate.x, gridLimits.x)) {
-            for (column in growBoundedRange(this.range(), gridLimits.x)) {
-                coordinates += Coordinate(row, column)
-            }
-        }
-        return coordinates
-    }
-}
+    fun value() = number
 
-fun growBoundedRange(range: IntRange, max: Int) =
-    (range.first - 1).coerceAtLeast(0)..(range.last + 1).coerceAtMost(max)
+    fun coordinatesReach(gridLimits: Coordinate): List<Coordinate> =
+        this.growBoundedRange(coordinate.row..coordinate.row, gridLimits.row)
+            .flatMap { row ->
+                this.growBoundedRange(this.range(), gridLimits.row).map { column ->
+                    Coordinate(row, column)
+                }
+            }
+
+    private fun range() = coordinate.column..coordinate.column + number.toString().lastIndex
+
+    private fun growBoundedRange(range: IntRange, max: Int) =
+        (range.first - 1).coerceAtLeast(0)..(range.last + 1).coerceAtMost(max)
+}
 
 class Gondola : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
@@ -59,17 +58,16 @@ class Gondola : Solver() {
 
     private fun partNumbers(input: List<String>): List<PartNumber> = input.flatMapIndexed { index, line ->
         numbersRegex.findAll(line)
-            .map { PartNumber(Coordinate(index, it.range.first), it.value) }
+            .map { PartNumber(Coordinate(index, it.range.first), it.value.toInt()) }
     }
 
     private fun addPartNumbers(input: List<String>, row: Int, column: Int): List<Int> =
         partNumbers(input).filter {
-            Coordinate(row, column) in it.touches(
+            Coordinate(row, column) in it.coordinatesReach(
                 Coordinate(
                     input.lastIndex,
                     input.first().lastIndex
                 )
             )
         }.map { it.value() }
-
 }
