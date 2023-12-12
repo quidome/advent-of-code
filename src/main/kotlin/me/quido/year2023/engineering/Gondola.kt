@@ -43,7 +43,7 @@ class Gondola : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         val engineParts = engineParts(input.nonBlank())
 
-        return engineParts.sumOf { it.partNumbers.reduce { acc, i -> acc + i } } to
+        return engineParts.sumOf { it.partNumbers.sum() } to
                 engineParts.filter { it.isGear() }
                     .sumOf { it.partNumbers.reduce { acc, i -> acc * i } }
     }
