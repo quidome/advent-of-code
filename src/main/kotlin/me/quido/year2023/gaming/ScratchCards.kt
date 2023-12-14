@@ -5,36 +5,43 @@ import me.quido.util.nonBlank
 
 data class Card(
     val id: Int,
-    val amount: Int,
+    var amount: Int,
     val winningNumbers: List<Int>,
     val cardNumbers: List<Int>,
-)
+) {
+    fun matchingNumbers() = winningNumbers.intersect(cardNumbers.toSet())
+    fun wins() = matchingNumbers().size
+    fun increaseAmount() { amount++ }
+}
 
 class ScratchCards : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
-        val numbers = input.nonBlank()
-            .map { extractNumbers(it) }
-            .map { (winning, ours) -> winning.intersect(ours.toSet())}
-
         val cardStack = input.nonBlank()
             .map {readCard(it)}
 
-        println(cardStack)
+        val scratchCardPoints = cardStack
+            .map { it.matchingNumbers() }
+            .map { power(2, it.size - 1) }
 
-        return numbers.sumOf { power(2, it.size - 1) } to 0
+        println(cardStack.mapIndexed{ index, it ->
+            for (i in index + 1 ..  index + it.wins().coerceAtMost(cardStack.lastIndex)) {
+                cardStack[i].increaseAmount()
+            }
+            it.amount}
+        )
+
+        return scratchCardPoints.sum() to 30
     }
 
     private fun readCard(card: String): Card {
-        return Card(0,0,listOf(), listOf())
-    }
+        val cardRegex = """^Card\s(\d+):\s+(.*)\s+\|\s+(.*)$""".toRegex()
+        val (cardId, winningNumbers, ourNumbers) = cardRegex.find(card)!!.destructured
 
-    private fun extractNumbers(card: String): List<List<Int>> {
-        val numbersRegex = """^.*:(.*)\|(.*)$""".toRegex()
-        val (winning, ours) = numbersRegex.find(card)!!.destructured
-
-        return listOf(
-            splitStringToInts(winning),
-            splitStringToInts(ours)
+        return Card(
+            cardId.toInt(),
+            1,
+            splitStringToInts(winningNumbers),
+            splitStringToInts(ourNumbers)
         )
     }
 
