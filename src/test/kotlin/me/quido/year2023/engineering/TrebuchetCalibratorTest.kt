@@ -1,11 +1,11 @@
-package me.quido.year2023.calibrating
+package me.quido.year2023.engineering
 
 import me.quido.util.nonBlank
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class TrebuchetTest {
-    private val trebuchet = Trebuchet()
+class TrebuchetCalibratorTest {
+    private val trebuchetCalibrator = TrebuchetCalibrator()
 
     @Test
     fun `verify calibration result`() {
@@ -18,7 +18,7 @@ class TrebuchetTest {
         """.trimIndent().lines()
 
         // Act
-        val output = trebuchet.solve(input)
+        val output = trebuchetCalibrator.solve(input)
 
         // Assert
         assertEquals(142 to 142, output)
@@ -38,7 +38,7 @@ class TrebuchetTest {
         """.trimIndent().lines()
 
         // Act
-        val output = trebuchet.solve(input.nonBlank())
+        val output = trebuchetCalibrator.solve(input.nonBlank())
 
         // Assert
         assertEquals(209 to 281, output)

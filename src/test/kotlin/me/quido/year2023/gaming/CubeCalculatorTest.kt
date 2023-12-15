@@ -3,8 +3,8 @@ package me.quido.year2023.gaming
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class ColoredCubesTest {
-    private val coloredCubes = ColoredCubes()
+class CubeCalculatorTest {
+    private val cubeCalculator = CubeCalculator()
 
     @Test
     fun `Test that we can calculate cubes`() {
@@ -19,7 +19,7 @@ class ColoredCubesTest {
         val expectedOutput = 8 to 2286
 
         // Act
-        val output = coloredCubes.solve(input)
+        val output = cubeCalculator.solve(input)
 
         // Assert
         assertEquals(expectedOutput, output )
