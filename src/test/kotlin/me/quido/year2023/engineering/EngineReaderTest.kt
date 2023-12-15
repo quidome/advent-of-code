@@ -3,8 +3,8 @@ package me.quido.year2023.engineering
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class GondolaTest {
-    private val gondola = Gondola()
+class EngineReaderTest {
+    private val engineReader = EngineReader()
 
     @Test
     fun `test engine part identifier`(){
@@ -22,7 +22,7 @@ class GondolaTest {
         """.trimIndent().lines()
         val expected = 4361 to 467835
 
-        val output = gondola.solve(input)
+        val output = engineReader.solve(input)
 
         assertEquals(expected, output)
     }
