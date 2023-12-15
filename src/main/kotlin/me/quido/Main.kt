@@ -8,6 +8,7 @@ import me.quido.year2023.engineering.TrebuchetCalibrator
 import me.quido.year2023.engineering.EngineReader
 import me.quido.year2023.gaming.CubeCalculator
 import me.quido.year2023.gaming.ScratchCardsCalculator
+import me.quido.year2023.farming.AlmanacReader
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit.MILLIS
 
@@ -16,6 +17,7 @@ private val solvers2023: List<Solver> = listOf(
     CubeCalculator(),
     EngineReader(),
     ScratchCardsCalculator(),
+    AlmanacReader(),
 )
 
 
