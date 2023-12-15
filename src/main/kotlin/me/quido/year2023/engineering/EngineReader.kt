@@ -39,7 +39,7 @@ data class PartNumber(
         (range.first - 1).coerceAtLeast(0)..(range.last + 1).coerceAtMost(max)
 }
 
-class Gondola : Solver() {
+class EngineReader : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         val engineParts = engineParts(input.nonBlank())
 

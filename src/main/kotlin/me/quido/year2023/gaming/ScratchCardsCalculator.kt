@@ -16,7 +16,7 @@ data class Card(
     }
 }
 
-class ScratchCards : Solver() {
+class ScratchCardsCalculator : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         val cardStack = input.nonBlank()
             .map { readCard(it) }

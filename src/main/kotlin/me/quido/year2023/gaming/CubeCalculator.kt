@@ -4,7 +4,7 @@ import me.quido.util.Solver
 import me.quido.util.nonBlank
 
 
-class ColoredCubes : Solver() {
+class CubeCalculator : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         /*
         Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green

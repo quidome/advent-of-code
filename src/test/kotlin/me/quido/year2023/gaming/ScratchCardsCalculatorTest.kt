@@ -2,8 +2,8 @@ package me.quido.year2023.gaming
 
 import org.junit.jupiter.api.Test
 
-class ScratchCardsTest {
-    private val scratchcards = ScratchCards()
+class ScratchCardsCalculatorTest {
+    private val scratchcards = ScratchCardsCalculator()
 
     @Test
     fun `Test scratch card profits`() {

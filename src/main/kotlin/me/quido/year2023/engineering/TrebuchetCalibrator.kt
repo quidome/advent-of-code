@@ -1,4 +1,4 @@
-package me.quido.year2023.calibrating
+package me.quido.year2023.engineering
 
 import me.quido.util.Solver
 import me.quido.util.nonBlank
@@ -17,7 +17,7 @@ enum class Number {
 }
 
 
-class Trebuchet : Solver() {
+class TrebuchetCalibrator : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         val regularInput = input.map { it -> it.filter { it.isDigit() } }
         val cleanedInput = cleanCalibrationInput(input.nonBlank())
