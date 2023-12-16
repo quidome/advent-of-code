@@ -7,3 +7,17 @@ fun Any.readFile(fileName: String, year: Int) =
     javaClass.getResource("/input/$year/$fileName")?.readText()?.lines()
 
 fun List<String>.nonBlank() = filter { it.isNotBlank() }
+
+fun List<String>.chunkInput(): MutableList<List<String>> {
+    val chunks = mutableListOf<List<String>>()
+
+    var lastIndex = 0
+    this.forEachIndexed { index, row ->
+        if (row.isEmpty()) {
+            val chunk = this.slice(lastIndex until index)
+            chunks.add(chunk)
+            lastIndex = index + 1
+        }
+    }
+    return chunks
+}

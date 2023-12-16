@@ -44,7 +44,7 @@ class AlmanacReaderTest {
             56 93 4
         """.trimIndent().lines()
 
-        val expected = 0 to 0
+        val expected = 35 to 0
         val output = almanacReader.solve(input)
 
         assertEquals(expected, output)
