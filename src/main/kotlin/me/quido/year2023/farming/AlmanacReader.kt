@@ -16,29 +16,26 @@ data class MappingGroup(
 
     fun getDestination(value: Long): Long {
         val matchingMappings = mappings.filter { value in it.sourceRange }
-        // I'm not checking for multiple matching mappings, just taking the first
         return if (matchingMappings.isNotEmpty()) matchingMappings.first().getMapping(value) else value
     }
 
     fun matchingMaps(range: LongRange): List<LongRange> {
         val output: MutableList<Pair<LongRange, Long>> = mutableListOf()
-        var lastMapped = 0.toLong().coerceAtLeast(range.first)
-
+        var nextRangeFirst = range.first
         mappings
             .sortedBy { it.source }
             .forEach { mapping ->
                 val intersect = boundaries(range, mapping.sourceRange)
                 if (intersect != null) {
-                    if (intersect.first > lastMapped + 1) {
-                        output.add(Pair(lastMapped until intersect.first, 0))
+                    if (intersect.first > nextRangeFirst) {
+                        output.add(Pair(nextRangeFirst until intersect.first, 0))
                     }
-                    output.add(Pair(intersect, mapping.size))
-                    lastMapped = intersect.last
+                    output.add(Pair(intersect, mapping.offset))
+                    nextRangeFirst = intersect.last + 1
                 }
             }
-        if (lastMapped < range.last) {
-            val trailingRange = lastMapped + 1..range.last
-            output.add(Pair(trailingRange, 0))
+        if (nextRangeFirst <= range.last) {
+            output.add(Pair(nextRangeFirst..range.last, 0))
         }
         return output.map { (range, offset) ->
             range.first + offset..range.last + offset
@@ -59,7 +56,7 @@ data class Mapping(
     val size: Long,
 ) {
     val sourceRange = source until source + size
-    private val offset = destination - source
+    val offset = destination - source
 
     companion object {
         fun fromString(mappingString: String): Mapping = fromLongList(mappingString.toLongList())
