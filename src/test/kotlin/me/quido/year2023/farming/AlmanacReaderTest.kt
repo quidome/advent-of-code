@@ -7,7 +7,7 @@ class AlmanacReaderTest {
     private val almanacReader = AlmanacReader()
 
     @Test
-    fun `not sure yet, rename later`() {
+    fun `when almanac is read, locations can be found`() {
         val input = """
             seeds: 79 14 55 13
 
@@ -44,7 +44,7 @@ class AlmanacReaderTest {
             56 93 4
         """.trimIndent().lines()
 
-        val expected = 35 to 0
+        val expected = 35.toLong() to 46.toLong()
         val output = almanacReader.solve(input)
 
         assertEquals(expected, output)
