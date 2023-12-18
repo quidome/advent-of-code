@@ -108,11 +108,8 @@ class AlmanacReader : Solver() {
     private fun List<LongRange>.traverseRanges(mappingGroups: List<MappingGroup>): List<LongRange> {
         var ranges = this
         mappingGroups.forEach { group ->
-            ranges = findRangesInMap(ranges, group)
+            ranges = ranges.flatMap { group.matchingMaps(it) }
         }
         return ranges.sortedBy { it.first}
     }
-
-    private fun findRangesInMap(ranges: List<LongRange>, mappingGroup: MappingGroup): List<LongRange> =
-        ranges.flatMap { mappingGroup.matchingMaps(it) }
 }
