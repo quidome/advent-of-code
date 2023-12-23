@@ -5,6 +5,7 @@ import me.quido.util.readFile
 import me.quido.year2023.engineering.EngineReader
 import me.quido.year2023.engineering.TrebuchetCalibrator
 import me.quido.year2023.farming.AlmanacReader
+import me.quido.year2023.gaming.BoatRaceCalculator
 import me.quido.year2023.gaming.CubeCalculator
 import me.quido.year2023.gaming.ScratchCardsCalculator
 import java.time.OffsetDateTime
@@ -16,6 +17,7 @@ private val solvers2023: List<Solver> = listOf(
     EngineReader(),
     ScratchCardsCalculator(),
     AlmanacReader(),
+    BoatRaceCalculator(),
 )
 
 
