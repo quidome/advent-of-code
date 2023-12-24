@@ -45,7 +45,7 @@ class EngineReader : Solver() {
 
         return engineParts.sumOf { it.partNumbers.sum() } to
                 engineParts.filter { it.isGear() }
-                    .sumOf { it.partNumbers.reduce { acc, i -> acc * i } }
+                    .sumOf { it.partNumbers.reduce(Int::times) }
     }
 
     private fun engineParts(input: List<String>): List<EnginePart> = input.flatMapIndexed { index, line ->
