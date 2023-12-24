@@ -32,7 +32,7 @@ class BoatRaceCalculator : Solver() {
         }
         val race = Race.fromPair(correctedRaceData.first() to correctedRaceData.last())
 
-        return winningDurationsAmount.reduce { acc, ints -> acc * ints } to race.winningDurations().size
+        return winningDurationsAmount.reduce(Int::times) to race.winningDurations().size
     }
 }
 

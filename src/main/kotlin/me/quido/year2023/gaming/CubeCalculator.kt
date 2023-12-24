@@ -45,7 +45,7 @@ class CubeCalculator : Solver() {
     }
 
     private fun minimalRequiredCubes(line: String): Int =
-        maxPerColor(line).values.reduce { acc, colorMax -> acc * colorMax }
+        maxPerColor(line).values.reduce(Int::times)
 
     private fun maxPerColor(line:String): Map<String, Int> {
         val colorMax = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
