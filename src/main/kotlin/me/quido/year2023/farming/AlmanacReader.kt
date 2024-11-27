@@ -7,7 +7,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 data class MappingGroup(
-    val mappings: List<Mapping>
+    val mappings: List<Mapping>,
 ) {
     companion object {
         fun fromInputChunk(chunkedInput: List<String>): MappingGroup =
@@ -42,7 +42,10 @@ data class MappingGroup(
         }
     }
 
-    private fun boundaries(A: LongRange, B: LongRange): LongRange? {
+    private fun boundaries(
+        A: LongRange,
+        B: LongRange,
+    ): LongRange? {
         val low = max(A.first, B.first)
         val high = min(A.last, B.last)
         if (high < low) return null
@@ -61,13 +64,11 @@ data class Mapping(
     companion object {
         fun fromString(mappingString: String): Mapping = fromLongList(mappingString.toLongList())
 
-        private fun fromLongList(mapListLong: List<Long>): Mapping =
-            Mapping(mapListLong[0], mapListLong[1], mapListLong[2])
+        private fun fromLongList(mapListLong: List<Long>): Mapping = Mapping(mapListLong[0], mapListLong[1], mapListLong[2])
     }
 
     fun getMapping(value: Long): Long = if (value in this.source..this.source + this.size) offset + value else value
 }
-
 
 class AlmanacReader : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
@@ -80,15 +81,20 @@ class AlmanacReader : Solver() {
         return seeds
             .locationsForSeeds(mappingGroups)
             .min() to
-                seedRanges.locationsForSeedRanges(mappingGroups).first().min()
+            seedRanges.locationsForSeedRanges(mappingGroups).first().min()
     }
 
-
     private fun List<List<String>>.readSeedNumbers() =
-        this.first().first().substring(7).toLongList()
+        this
+            .first()
+            .first()
+            .substring(7)
+            .toLongList()
 
     private fun List<List<String>>.readSeedNumberRanges(): List<LongRange> =
-        this.readSeedNumbers().withIndex()
+        this
+            .readSeedNumbers()
+            .withIndex()
             .groupBy { it.index / 2 }
             .map { it -> it.value.map { it.value } }
             .map { it.first()..it.first() + it.last() }
@@ -110,6 +116,6 @@ class AlmanacReader : Solver() {
         mappingGroups.forEach { group ->
             ranges = ranges.flatMap { group.matchingMaps(it) }
         }
-        return ranges.sortedBy { it.first}
+        return ranges.sortedBy { it.first }
     }
 }

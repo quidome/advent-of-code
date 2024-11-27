@@ -9,8 +9,7 @@ data class Race(
     val winningDistance: Long,
 ) {
     companion object {
-        fun fromPair(raceData: Pair<Long, Long>): Race =
-            Race(duration = raceData.first, winningDistance = raceData.second)
+        fun fromPair(raceData: Pair<Long, Long>): Race = Race(duration = raceData.first, winningDistance = raceData.second)
     }
 
     fun winningDurations(): List<Long> = (0..duration).map { distanceTraveled(it) }.filter { it > winningDistance }
@@ -25,18 +24,24 @@ class BoatRaceCalculator : Solver() {
         val races = listsToListOfPairs(raceData.first(), raceData.last()).map { Race.fromPair(it) }
         val winningDurationsAmount = races.map { it.winningDurations().size }
 
-        val correctedRaceData = input.nonBlank().map {
-            it.substringAfter(':').filter {
-                it.isDigit()
-            }.toLong()
-        }
+        val correctedRaceData =
+            input.nonBlank().map {
+                it
+                    .substringAfter(':')
+                    .filter {
+                        it.isDigit()
+                    }.toLong()
+            }
         val race = Race.fromPair(correctedRaceData.first() to correctedRaceData.last())
 
         return winningDurationsAmount.reduce(Int::times) to race.winningDurations().size
     }
 }
 
-private fun listsToListOfPairs(keys: List<Long>, values: List<Long>): List<Pair<Long, Long>> {
+private fun listsToListOfPairs(
+    keys: List<Long>,
+    values: List<Long>,
+): List<Pair<Long, Long>> {
     if (keys.size != values.size) return emptyList()
 
     val returnValue: MutableList<Pair<Long, Long>> = mutableListOf()

@@ -7,8 +7,9 @@ class EngineReaderTest {
     private val engineReader = EngineReader()
 
     @Test
-    fun `test engine part identifier`(){
-        val input = """
+    fun `test engine part identifier`() {
+        val input =
+            """
             467..114..
             ...*......
             ..35..633.
@@ -19,7 +20,7 @@ class EngineReaderTest {
             ......755.
             ...$.*....
             .664.598..
-        """.trimIndent().lines()
+            """.trimIndent().lines()
         val expected = 4361 to 467835
 
         val output = engineReader.solve(input)

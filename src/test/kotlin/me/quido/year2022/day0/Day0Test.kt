@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class Day0Test {
-    private val input = """
+    private val input =
+        """
         Example input
         """.trimIndent().trimEnd()
 

@@ -8,7 +8,8 @@ class AlmanacReaderTest {
 
     @Test
     fun `when almanac is read, locations can be found`() {
-        val input = """
+        val input =
+            """
             seeds: 79 14 55 13
 
             seed-to-soil map:
@@ -42,12 +43,11 @@ class AlmanacReaderTest {
             humidity-to-location map:
             60 56 37
             56 93 4
-        """.trimIndent().lines()
+            """.trimIndent().lines()
 
         val expected = 35.toLong() to 46.toLong()
         val output = almanacReader.solve(input)
 
         assertEquals(expected, output)
-
     }
 }

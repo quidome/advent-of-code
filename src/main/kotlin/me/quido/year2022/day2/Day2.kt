@@ -10,8 +10,9 @@ fun main() {
     println(solver.part2())
 }
 
-
-class Day2(private val input: String) {
+class Day2(
+    private val input: String,
+) {
     fun part1(): Int {
         var myScore = 0
         val turns = turnsTranslatedToScores()
@@ -22,7 +23,6 @@ class Day2(private val input: String) {
         }
         return myScore
     }
-
 
     fun part2(): Int {
         var myScore = 0
@@ -36,14 +36,14 @@ class Day2(private val input: String) {
         return myScore
     }
 
-
     private fun turnsTranslatedToScores(): List<IntArray> {
-        val turns = input.split("\n")
-            .map { it.split(" ") }
-            .map { turnsListToInts(it) }
+        val turns =
+            input
+                .split("\n")
+                .map { it.split(" ") }
+                .map { turnsListToInts(it) }
         return turns
     }
-
 
     private fun turnsListToInts(weapons: List<String>): IntArray {
         var returnValue = intArrayOf()
@@ -55,16 +55,13 @@ class Day2(private val input: String) {
         return returnValue
     }
 
-
-    private fun turnToInt(turn: String): Int {
-        return when (turn) {
+    private fun turnToInt(turn: String): Int =
+        when (turn) {
             "A", "X" -> 1
             "B", "Y" -> 2
             "C", "Z" -> 3
             else -> 0
         }
-    }
-
 
     private fun selectResponse(turn: IntArray): Int {
         val theirTurn = turn[0]
@@ -79,7 +76,6 @@ class Day2(private val input: String) {
         error("$requiredResponse is not a valid response")
     }
 
-
     private fun pointsForDuel(turns: IntArray): Int {
         if (turns[0] == turns[1]) {
             return 3
@@ -90,8 +86,10 @@ class Day2(private val input: String) {
         return 0
     }
 
-
-    private fun weWin(theirItem: Int, ourItem: Int): Boolean = ourItem == getStrongerItem(theirItem)
+    private fun weWin(
+        theirItem: Int,
+        ourItem: Int,
+    ): Boolean = ourItem == getStrongerItem(theirItem)
 
     private fun getStrongerItem(weapon: Int): Int = weapon % 3 + 1
 

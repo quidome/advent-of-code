@@ -8,11 +8,11 @@ fun main() {
 
     println(day1.getCaloriesCarriedByTheTopElves(1))
     println(day1.getCaloriesCarriedByTheTopElves(3))
-
 }
 
-
-class Day1(private val input: String) {
+class Day1(
+    private val input: String,
+) {
     fun getCaloriesCarriedByTheTopElves(amountOfTopElves: Int): Int =
         cleanedCalorieLog(input)
             .map { it.sum() }
@@ -21,9 +21,11 @@ class Day1(private val input: String) {
             .sum()
 
     private fun cleanedCalorieLog(input: String): List<List<Int>> =
-        input.split("\n\n")
-            .map { elf -> elf
-                .lines()
-                .map { it.toInt() }
-        }
+        input
+            .split("\n\n")
+            .map { elf ->
+                elf
+                    .lines()
+                    .map { it.toInt() }
+            }
 }

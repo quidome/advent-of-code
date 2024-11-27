@@ -3,7 +3,6 @@ package me.quido.year2023.gaming
 import me.quido.util.Solver
 import me.quido.util.nonBlank
 
-
 class CubeCalculator : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         /*
@@ -23,11 +22,11 @@ class CubeCalculator : Solver() {
         Then I need to multiply these max values.
 
         I actually don't need real structure for these, just the highest number per color per line
-        */
+         */
         val gamesList = input.nonBlank()
 
         return gamesList.sumOf { possibleGames(it) } to
-                gamesList.sumOf { minimalRequiredCubes(it) }
+            gamesList.sumOf { minimalRequiredCubes(it) }
     }
 
     private fun possibleGames(line: String): Int {
@@ -44,10 +43,9 @@ class CubeCalculator : Solver() {
         return gameId.toInt()
     }
 
-    private fun minimalRequiredCubes(line: String): Int =
-        maxPerColor(line).values.reduce(Int::times)
+    private fun minimalRequiredCubes(line: String): Int = maxPerColor(line).values.reduce(Int::times)
 
-    private fun maxPerColor(line:String): Map<String, Int> {
+    private fun maxPerColor(line: String): Map<String, Int> {
         val colorMax = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
         val cubesRegex = """(?<amount>\d+)\s(?<color>red|green|blue)""".toRegex()
         var cubesResult = cubesRegex.find(line)
