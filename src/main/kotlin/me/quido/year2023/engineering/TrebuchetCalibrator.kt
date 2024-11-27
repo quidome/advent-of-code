@@ -13,9 +13,8 @@ enum class Number {
     SIX,
     SEVEN,
     EIGHT,
-    NINE
+    NINE,
 }
-
 
 class TrebuchetCalibrator : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
@@ -24,7 +23,6 @@ class TrebuchetCalibrator : Solver() {
 
         return calibration(regularInput) to calibration(cleanedInput)
     }
-
 
     private fun calibration(calibrationInput: List<String>): Int {
         var calibrationValuesTotal = 0
@@ -41,11 +39,7 @@ class TrebuchetCalibrator : Solver() {
         return calibrationValuesTotal
     }
 
-
-    private fun cleanCalibrationInput(calibrationInput: List<String>): List<String> {
-        return calibrationInput.map { replaceWords(it) }
-    }
-
+    private fun cleanCalibrationInput(calibrationInput: List<String>): List<String> = calibrationInput.map { replaceWords(it) }
 
     private fun replaceWords(calibrationLine: String): String {
         val digits = HashMap<Int, Int>()
@@ -60,13 +54,14 @@ class TrebuchetCalibrator : Solver() {
         return digits.toSortedMap().values.joinToString()
     }
 
+    private fun ignoreCaseOpt(ignoreCase: Boolean) = if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
 
-    private fun ignoreCaseOpt(ignoreCase: Boolean) =
-        if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
-
-
-    private fun String?.indexesOf(pat: String, ignoreCase: Boolean = true): List<Int> =
-        pat.toRegex(ignoreCaseOpt(ignoreCase))
+    private fun String?.indexesOf(
+        pat: String,
+        ignoreCase: Boolean = true,
+    ): List<Int> =
+        pat
+            .toRegex(ignoreCaseOpt(ignoreCase))
             .findAll(this ?: "")
             .map { it.range.first }
             .toList()

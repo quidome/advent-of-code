@@ -10,12 +10,13 @@ class TrebuchetCalibratorTest {
     @Test
     fun `verify calibration result`() {
         // Arrange
-        val input = """
+        val input =
+            """
             1abc2
             pqr3stu8vwx
             a1b2c3d4e5f
             treb7uchet
-        """.trimIndent().lines()
+            """.trimIndent().lines()
 
         // Act
         val output = trebuchetCalibrator.solve(input)
@@ -27,7 +28,8 @@ class TrebuchetCalibratorTest {
     @Test
     fun `verify next calibration result`() {
         // Arrange
-        val input = """
+        val input =
+            """
             two1nine
             eightwothree
             abcone2threexyz
@@ -35,7 +37,7 @@ class TrebuchetCalibratorTest {
             4nineeightseven2
             zoneight234
             7pqrstsixteen
-        """.trimIndent().lines()
+            """.trimIndent().lines()
 
         // Act
         val output = trebuchetCalibrator.solve(input.nonBlank())

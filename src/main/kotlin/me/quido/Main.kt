@@ -11,20 +11,19 @@ import me.quido.year2023.gaming.ScratchCardsCalculator
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit.MILLIS
 
-private val solvers2023: List<Solver> = listOf(
-    TrebuchetCalibrator(),
-    CubeCalculator(),
-    EngineReader(),
-    ScratchCardsCalculator(),
-    AlmanacReader(),
-    BoatRaceCalculator(),
-)
-
+private val solvers2023: List<Solver> =
+    listOf(
+        TrebuchetCalibrator(),
+        CubeCalculator(),
+        EngineReader(),
+        ScratchCardsCalculator(),
+        AlmanacReader(),
+        BoatRaceCalculator(),
+    )
 
 fun main() {
     2023.printSolutions(solvers2023)
 }
-
 
 private fun Int.printSolutions(solvers: List<Solver>) {
     println("Solutions for year $this\n")

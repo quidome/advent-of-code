@@ -10,7 +10,9 @@ data class Card(
     val cardNumbers: List<Int>,
 ) {
     fun matchingNumbers() = winningNumbers.intersect(cardNumbers.toSet())
+
     fun wins() = matchingNumbers().size
+
     fun increaseAmount(increase: Int = 1) {
         amount += increase
     }
@@ -18,22 +20,26 @@ data class Card(
 
 class ScratchCardsCalculator : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
-        val cardStack = input.nonBlank()
-            .map { readCard(it) }
+        val cardStack =
+            input
+                .nonBlank()
+                .map { readCard(it) }
 
-        val scratchCardPoints = cardStack
-            .map { it.matchingNumbers() }
-            .map { power(2, it.size - 1) }
-            .sum()
+        val scratchCardPoints =
+            cardStack
+                .map { it.matchingNumbers() }
+                .map { power(2, it.size - 1) }
+                .sum()
 
-        val finalCardStackSize = cardStack
-            .mapIndexed { index, card ->
-                val cardRange = index + 1..(index + card.wins()).coerceAtMost(cardStack.lastIndex)
-                for (i in cardRange) {
-                    cardStack[i].increaseAmount(card.amount)
-                }
-                card.amount
-            }.sum()
+        val finalCardStackSize =
+            cardStack
+                .mapIndexed { index, card ->
+                    val cardRange = index + 1..(index + card.wins()).coerceAtMost(cardStack.lastIndex)
+                    for (i in cardRange) {
+                        cardStack[i].increaseAmount(card.amount)
+                    }
+                    card.amount
+                }.sum()
 
         return scratchCardPoints to finalCardStackSize
     }
@@ -46,21 +52,26 @@ class ScratchCardsCalculator : Solver() {
             cardId.toInt(),
             1,
             splitStringToInts(winningNumbers),
-            splitStringToInts(ourNumbers)
+            splitStringToInts(ourNumbers),
         )
     }
 
-    private fun splitStringToInts(winning: String) = winning.trim().split(' ')
-        .filter { it.isNotEmpty() }
-        .map { it.toInt() }
+    private fun splitStringToInts(winning: String) =
+        winning
+            .trim()
+            .split(' ')
+            .filter { it.isNotEmpty() }
+            .map { it.toInt() }
 
-    private fun power(baseVal: Int, exponentVal: Int): Int {
-        return if (exponentVal < 0) {
+    private fun power(
+        baseVal: Int,
+        exponentVal: Int,
+    ): Int =
+        if (exponentVal < 0) {
             0
         } else if (exponentVal != 0) {
             baseVal * power(baseVal, exponentVal - 1)
         } else {
             1
         }
-    }
 }

@@ -8,10 +8,11 @@ class BoatRaceCalculatorTest {
 
     @Test
     fun `when given race data, calculate possible race outcomes`() {
-        val input = """
+        val input =
+            """
             Time:      7  15   30
             Distance:  9  40  200
-        """.trimIndent().lines()
+            """.trimIndent().lines()
         val expected = 288 to 71503
 
         val output = boatRaceCalculator.solve(input)

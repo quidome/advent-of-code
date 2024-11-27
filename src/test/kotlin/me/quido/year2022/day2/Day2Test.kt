@@ -3,9 +3,9 @@ package me.quido.year2022.day2
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-
 class Day2Test {
-    private val input = """
+    private val input =
+        """
         A Y
         B X
         C Z
