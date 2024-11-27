@@ -21,8 +21,12 @@ private val solvers2023: List<Solver> =
         BoatRaceCalculator(),
     )
 
+private val solvers2024: List<Solver> =
+    listOf()
+
 fun main() {
     2023.printSolutions(solvers2023)
+    2024.printSolutions(solvers2024)
 }
 
 private fun Int.printSolutions(solvers: List<Solver>) {
