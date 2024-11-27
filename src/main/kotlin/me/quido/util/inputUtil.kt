@@ -13,7 +13,11 @@ fun getInputAsText(
 fun Any.readFile(
     fileName: String,
     year: Int,
-) = javaClass.getResource("/input/$year/$fileName")?.readText()?.lines()
+) = javaClass
+    .getResource("/input/$year/$fileName")
+    ?.readText()
+    ?.lines()
+    ?.dropLastWhile { it.isEmpty() }
 
 fun List<String>.nonBlank() = filter { it.isNotBlank() }
 
