@@ -18,8 +18,8 @@ ktlint_experimental = enabled
 ktlint_ignore_back_ticked_identifier = true
 
 #  - High count is to make sure it never convert to start import
-ij_kotlin_name_count_to_use_star_import = 2147483647
-ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
+ij_kotlin_name_count_to_use_star_import = 99
+ij_kotlin_name_count_to_use_star_import_for_members = 99
 
 # Don't allow any wildcard imports
 ij_kotlin_packages_to_use_import_on_demand = unset
