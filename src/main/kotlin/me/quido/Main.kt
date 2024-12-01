@@ -8,6 +8,7 @@ import me.quido.year2023.farming.AlmanacReader
 import me.quido.year2023.gaming.BoatRaceCalculator
 import me.quido.year2023.gaming.CubeCalculator
 import me.quido.year2023.gaming.ScratchCardsCalculator
+import me.quido.year2024.planning.DistanceFinder
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit.MILLIS
 
@@ -22,7 +23,9 @@ private val solvers2023: List<Solver> =
     )
 
 private val solvers2024: List<Solver> =
-    listOf()
+    listOf(
+        DistanceFinder(),
+    )
 
 fun main() {
     2023.printSolutions(solvers2023)
