@@ -10,6 +10,7 @@ import me.quido.year2023.gaming.CubeCalculator
 import me.quido.year2023.gaming.ScratchCardsCalculator
 import me.quido.year2024.planning.DistanceFinder
 import me.quido.year2024.reporting.RedNosedReactor
+import me.quido.year2024.warehousing.MemoryIssues
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit.MILLIS
 
@@ -27,6 +28,7 @@ private val solvers2024: List<Solver> =
     listOf(
         DistanceFinder(),
         RedNosedReactor(),
+        MemoryIssues(),
     )
 
 fun main() {
