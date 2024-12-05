@@ -52,15 +52,17 @@ data class Board(
             position.coordinate.x == coordinate.x && position.coordinate.y == coordinate.y
         }
 
-    fun getNeighboringCoordinates(
-        x: Int,
-        y: Int,
-    ): List<Pair<Int, Int>> =
-        makeRange(x, this.width - 1).flatMap { currentX ->
-            makeRange(y, this.height - 1).map { currentY ->
-                currentX to currentY
-            }
-        }
+    fun getDiagonalValues(coordinate: Coordinate): List<Pair<Property?, Property?>> {
+        val readingUp =
+            getPosition(Coordinate(coordinate.x + 1, coordinate.y - 1))?.value to
+                getPosition(Coordinate(coordinate.x - 1, coordinate.y + 1))?.value
+
+        val readingDown =
+            getPosition(Coordinate(coordinate.x - 1, coordinate.y - 1))?.value to
+                getPosition(Coordinate(coordinate.x + 1, coordinate.y + 1))?.value
+
+        return listOf(readingUp, readingDown)
+    }
 
     fun getInlineCoordinates(
         coordinate: Coordinate,
@@ -78,31 +80,24 @@ data class Board(
         if (x < 0 || y < 0 || x >= width || y >= height) return null
         return Coordinate(x, y)
     }
-
-    private fun makeRange(
-        center: Int,
-        max: Int,
-    ): IntRange = (center - 1).coerceAtLeast(0)..(center + 1).coerceAtMost(max)
 }
 
 class WordSearch : Solver() {
     override fun solve(input: List<String>): Pair<Any, Any> {
         val board = createBoardFromInput(input)
-        var wordCount = 0
-        var crossCount = 0
 
-        board.positions
-            .filter { position -> position.value == Property.X }
-            .forEach { startingPosition ->
-                wordCount +=
-                    findXmasInSingleDirection(board, startingPosition.coordinate, Property.X)
-            }
+        val wordCount =
+            board.positions
+                .filter { position -> position.value == Property.X }
+                .sumOf { findXmasInSingleDirection(board, it.coordinate, Property.X) }
 
-        board.positions
-            .filter { position -> position.value == Property.A }
-            .forEach { startingPosition ->
-                crossCount += findXmasCrosses(board, startingPosition.coordinate, Property.X)
-            }
+        val crossCount =
+            board.positions
+                .filter { position ->
+                    position.value == Property.A &&
+                        position.coordinate.x in 1 until (board.width - 1) &&
+                        position.coordinate.y in 1 until (board.height - 1)
+                }.count { findXmasCrosses(board, it.coordinate) }
 
         return wordCount to crossCount
     }
@@ -110,15 +105,15 @@ class WordSearch : Solver() {
     private fun findXmasCrosses(
         board: Board,
         coordinate: Coordinate,
-        property: Property,
-        direction: Direction = Direction.ANY,
-    ): Int {
-        // Let's get cracking
+    ): Boolean {
+        val validProperties = setOf(Property.M, Property.S)
+        val diagonals = board.getDiagonalValues(coordinate)
 
-        // We don't need to work on any A in the outer line, those won't
-        // create proper X-es.
-
-        return 1
+        return diagonals.all { diagonal ->
+            diagonal.first in validProperties &&
+                diagonal.second in validProperties &&
+                diagonal.first != diagonal.second
+        }
     }
 
     private fun findXmasInSingleDirection(
@@ -146,29 +141,6 @@ class WordSearch : Solver() {
         } else {
             val nextCoordinate = board.getInlineCoordinates(coordinate, direction) ?: return 0
             count += findXmasInSingleDirection(board, nextCoordinate, nextProperty, direction)
-        }
-
-        return count
-    }
-
-    private fun findXmasSnakeStyle(
-        board: Board,
-        x: Int,
-        y: Int,
-        propertyToFind: Property, // property to look for
-    ): Int {
-        val nextProperty = Property.next(propertyToFind)
-
-        if (board.getPosition(Coordinate(x, y))?.value != propertyToFind) { // Property does not match
-            return 0
-        } else if (nextProperty == Property.NULL) { // End of the line, last property was found
-            return 1
-        }
-
-        var count = 0
-        val surroundings: List<Pair<Int, Int>> = board.getNeighboringCoordinates(x, y)
-        for (surrounding in surroundings) {
-            count += findXmasSnakeStyle(board, surrounding.first, surrounding.second, nextProperty)
         }
 
         return count

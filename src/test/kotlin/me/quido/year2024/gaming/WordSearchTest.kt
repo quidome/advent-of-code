@@ -6,13 +6,6 @@ import org.junit.jupiter.api.Test
 class WordSearchTest {
     @Test
     fun `find XMAS in input`() {
-        val inputSimple =
-            """
-            XAAA
-            AMAA
-            SAAA
-            AAAS
-            """.trimIndent().lines()
         val input =
             """
             MMMSXXMASM
@@ -26,7 +19,7 @@ class WordSearchTest {
             MAMMMXMMMM
             MXMXAXMASX
             """.trimIndent().lines()
-        val expected = 18 to false
+        val expected = 18 to 9
         val wordSearch = WordSearch()
 
         val output = wordSearch.solve(input)
