@@ -8,6 +8,7 @@ import me.quido.year2023.farming.AlmanacReader
 import me.quido.year2023.gaming.BoatRaceCalculator
 import me.quido.year2023.gaming.CubeCalculator
 import me.quido.year2023.gaming.ScratchCardsCalculator
+import me.quido.year2024.gaming.WordSearch
 import me.quido.year2024.planning.DistanceFinder
 import me.quido.year2024.reporting.RedNosedReactor
 import me.quido.year2024.warehousing.MemoryIssues
@@ -29,6 +30,7 @@ private val solvers2024: List<Solver> =
         DistanceFinder(),
         RedNosedReactor(),
         MemoryIssues(),
+        WordSearch(),
     )
 
 fun main() {
