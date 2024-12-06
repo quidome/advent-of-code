@@ -1,23 +1,18 @@
 package me.quido.util
 
-fun getInputAsText(
-    year: Int,
-    day: Int,
-): String? =
+fun getInputAsText(year: Int, day: Int): String? =
     object {}
         .javaClass
         .getResource("/input/$year/day$day.txt")
         ?.readText()
         ?.trimEnd()
 
-fun Any.readFile(
-    fileName: String,
-    year: Int,
-) = javaClass
-    .getResource("/input/$year/$fileName")
-    ?.readText()
-    ?.lines()
-    ?.dropLastWhile { it.isEmpty() }
+fun Any.readFile(fileName: String, year: Int) =
+    javaClass
+        .getResource("/input/$year/$fileName")
+        ?.readText()
+        ?.lines()
+        ?.dropLastWhile { it.isEmpty() }
 
 fun List<String>.nonBlank() = filter { it.isNotBlank() }
 

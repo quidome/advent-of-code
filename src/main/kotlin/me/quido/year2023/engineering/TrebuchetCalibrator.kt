@@ -56,10 +56,7 @@ class TrebuchetCalibrator : Solver() {
 
     private fun ignoreCaseOpt(ignoreCase: Boolean) = if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
 
-    private fun String?.indexesOf(
-        pat: String,
-        ignoreCase: Boolean = true,
-    ): List<Int> =
+    private fun String?.indexesOf(pat: String, ignoreCase: Boolean = true): List<Int> =
         pat
             .toRegex(ignoreCaseOpt(ignoreCase))
             .findAll(this ?: "")

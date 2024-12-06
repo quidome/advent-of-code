@@ -6,10 +6,7 @@ import me.quido.util.nonBlank
 val numbersRegex = """\d+""".toRegex()
 val partsRegex = """[^\d.]""".toRegex()
 
-data class Coordinate(
-    val row: Int,
-    val column: Int,
-)
+data class Coordinate(val row: Int, val column: Int)
 
 data class EnginePart(
     val coordinate: Coordinate,
@@ -19,10 +16,7 @@ data class EnginePart(
     fun isGear() = type == '*' && partNumbers.size == 2
 }
 
-data class PartNumber(
-    val coordinate: Coordinate,
-    val number: Int,
-) {
+data class PartNumber(val coordinate: Coordinate, val number: Int) {
     fun value() = number
 
     fun coordinatesReach(gridLimits: Coordinate): List<Coordinate> =
@@ -36,10 +30,7 @@ data class PartNumber(
 
     private fun range() = coordinate.column..coordinate.column + number.toString().lastIndex
 
-    private fun growBoundedRange(
-        range: IntRange,
-        max: Int,
-    ) = (range.first - 1).coerceAtLeast(0)..(range.last + 1).coerceAtMost(max)
+    private fun growBoundedRange(range: IntRange, max: Int) = (range.first - 1).coerceAtLeast(0)..(range.last + 1).coerceAtMost(max)
 }
 
 class EngineReader : Solver() {
@@ -68,11 +59,7 @@ class EngineReader : Solver() {
                 .map { PartNumber(Coordinate(index, it.range.first), it.value.toInt()) }
         }
 
-    private fun addPartNumbers(
-        input: List<String>,
-        row: Int,
-        column: Int,
-    ): List<Int> =
+    private fun addPartNumbers(input: List<String>, row: Int, column: Int): List<Int> =
         partNumbers(input)
             .filter {
                 Coordinate(row, column) in

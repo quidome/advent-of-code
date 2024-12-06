@@ -10,9 +10,7 @@ fun main() {
     println(solver.part2())
 }
 
-class Day0(
-    private val input: String,
-) {
+class Day0(private val input: String) {
     fun part1(): Int {
         println(input)
         return 1

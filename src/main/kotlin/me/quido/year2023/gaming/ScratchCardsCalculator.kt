@@ -63,10 +63,7 @@ class ScratchCardsCalculator : Solver() {
             .filter { it.isNotEmpty() }
             .map { it.toInt() }
 
-    private fun power(
-        baseVal: Int,
-        exponentVal: Int,
-    ): Int =
+    private fun power(baseVal: Int, exponentVal: Int): Int =
         if (exponentVal < 0) {
             0
         } else if (exponentVal != 0) {

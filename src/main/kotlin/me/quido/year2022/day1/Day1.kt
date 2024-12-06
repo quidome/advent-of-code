@@ -10,9 +10,7 @@ fun main() {
     println(day1.getCaloriesCarriedByTheTopElves(3))
 }
 
-class Day1(
-    private val input: String,
-) {
+class Day1(private val input: String) {
     fun getCaloriesCarriedByTheTopElves(amountOfTopElves: Int): Int =
         cleanedCalorieLog(input)
             .map { it.sum() }

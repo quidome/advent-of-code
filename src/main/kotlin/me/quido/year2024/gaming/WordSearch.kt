@@ -2,9 +2,7 @@ package me.quido.year2024.gaming
 
 import me.quido.util.Solver
 
-enum class Property(
-    val char: Char?,
-) {
+enum class Property(val char: Char?) {
     NULL(null),
     X('X'),
     M('M'),
@@ -31,15 +29,9 @@ enum class Direction {
     RIGHT,
 }
 
-data class Coordinate(
-    val x: Int,
-    val y: Int,
-)
+data class Coordinate(val x: Int, val y: Int)
 
-data class Position(
-    val coordinate: Coordinate,
-    var value: Property? = null,
-)
+data class Position(val coordinate: Coordinate, var value: Property? = null)
 
 data class Board(
     val width: Int,
@@ -64,10 +56,7 @@ data class Board(
         return listOf(readingUp, readingDown)
     }
 
-    fun getInlineCoordinates(
-        coordinate: Coordinate,
-        direction: Direction,
-    ): Coordinate? {
+    fun getInlineCoordinates(coordinate: Coordinate, direction: Direction): Coordinate? {
         var x = coordinate.x
         var y = coordinate.y
 
@@ -102,10 +91,7 @@ class WordSearch : Solver() {
         return wordCount to crossCount
     }
 
-    private fun findXmasCrosses(
-        board: Board,
-        coordinate: Coordinate,
-    ): Boolean {
+    private fun findXmasCrosses(board: Board, coordinate: Coordinate): Boolean {
         val validProperties = setOf(Property.M, Property.S)
         val diagonals = board.getDiagonalValues(coordinate)
 

@@ -10,9 +10,7 @@ fun main() {
     println(solver.part2())
 }
 
-class Day2(
-    private val input: String,
-) {
+class Day2(private val input: String) {
     fun part1(): Int {
         var myScore = 0
         val turns = turnsTranslatedToScores()
@@ -86,10 +84,7 @@ class Day2(
         return 0
     }
 
-    private fun weWin(
-        theirItem: Int,
-        ourItem: Int,
-    ): Boolean = ourItem == getStrongerItem(theirItem)
+    private fun weWin(theirItem: Int, ourItem: Int): Boolean = ourItem == getStrongerItem(theirItem)
 
     private fun getStrongerItem(weapon: Int): Int = weapon % 3 + 1
 

@@ -4,10 +4,7 @@ import me.quido.util.Solver
 import me.quido.util.nonBlank
 import me.quido.util.toLongList
 
-data class Race(
-    val duration: Long,
-    val winningDistance: Long,
-) {
+data class Race(val duration: Long, val winningDistance: Long) {
     companion object {
         fun fromPair(raceData: Pair<Long, Long>): Race = Race(duration = raceData.first, winningDistance = raceData.second)
     }
@@ -38,10 +35,7 @@ class BoatRaceCalculator : Solver() {
     }
 }
 
-private fun listsToListOfPairs(
-    keys: List<Long>,
-    values: List<Long>,
-): List<Pair<Long, Long>> {
+private fun listsToListOfPairs(keys: List<Long>, values: List<Long>): List<Pair<Long, Long>> {
     if (keys.size != values.size) return emptyList()
 
     val returnValue: MutableList<Pair<Long, Long>> = mutableListOf()

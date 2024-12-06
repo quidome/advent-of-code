@@ -6,9 +6,7 @@ import me.quido.util.toLongList
 import kotlin.math.max
 import kotlin.math.min
 
-data class MappingGroup(
-    val mappings: List<Mapping>,
-) {
+data class MappingGroup(val mappings: List<Mapping>) {
     companion object {
         fun fromInputChunk(chunkedInput: List<String>): MappingGroup =
             MappingGroup(chunkedInput.slice(1..chunkedInput.lastIndex).map { Mapping.fromString(it) })
@@ -42,10 +40,7 @@ data class MappingGroup(
         }
     }
 
-    private fun boundaries(
-        A: LongRange,
-        B: LongRange,
-    ): LongRange? {
+    private fun boundaries(A: LongRange, B: LongRange): LongRange? {
         val low = max(A.first, B.first)
         val high = min(A.last, B.last)
         if (high < low) return null

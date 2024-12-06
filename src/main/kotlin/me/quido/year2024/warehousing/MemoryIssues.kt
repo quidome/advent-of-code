@@ -17,10 +17,7 @@ class MemoryIssues : Solver() {
 
     private fun String.restoreCorruptedMemory(): List<String> = operationsRegex.findAll(this).map { it.groupValues[1] }.toList()
 
-    private fun calculateMultiplications(
-        operations: List<String>,
-        ignoreConditionals: Boolean = true,
-    ): Int {
+    private fun calculateMultiplications(operations: List<String>, ignoreConditionals: Boolean = true): Int {
         var total = 0
         var enableMultiplication = true
 

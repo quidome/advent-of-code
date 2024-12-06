@@ -30,10 +30,7 @@ class Day1Test {
         "1, 24000",
         "3, 45000",
     )
-    fun getCaloriesFromANumberOfElves(
-        elves: Int,
-        expected: Int,
-    ) {
+    fun getCaloriesFromANumberOfElves(elves: Int, expected: Int) {
         assertEquals(expected, solver.getCaloriesCarriedByTheTopElves(elves))
     }
 }
