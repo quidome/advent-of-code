@@ -11,6 +11,7 @@ import me.quido.year2023.gaming.ScratchCardsCalculator
 import me.quido.year2024.compliancy.SafetyManual
 import me.quido.year2024.gaming.WordSearch
 import me.quido.year2024.planning.DistanceFinder
+import me.quido.year2024.planning.GuardGallivant
 import me.quido.year2024.reporting.RedNosedReactor
 import me.quido.year2024.warehousing.MemoryIssues
 import java.time.OffsetDateTime
@@ -33,6 +34,7 @@ private val solvers2024: List<Solver> =
         MemoryIssues(),
         WordSearch(),
         SafetyManual(),
+        GuardGallivant(),
     )
 
 fun main() {
