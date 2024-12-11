@@ -37,7 +37,7 @@ class SafetyManualTest {
             61,13,29
             97,13,75,29,47
             """.trimIndent().lines()
-        val expected = 143 to 143
+        val expected = 143 to 123
         val safetyManual = SafetyManual()
 
         val output = safetyManual.solve(input)

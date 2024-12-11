@@ -16,16 +16,12 @@ fun Any.readFile(fileName: String, year: Int) =
 
 fun List<String>.nonBlank() = filter { it.isNotBlank() }
 
-fun List<String>.chunkInput(): List<List<String>> {
-    val chunks = mutableListOf<List<String>>()
-
-    var lastIndex = 0
-    this.forEachIndexed { index, row ->
-        if (row.isEmpty() || index == this.lastIndex) {
-            val chunk = this.slice(lastIndex until index)
-            chunks.add(chunk)
-            lastIndex = index + 1
+fun List<String>.chunkInput(): List<List<String>> =
+    this.fold(mutableListOf(mutableListOf<String>())) { acc, str ->
+        if (str.isNotEmpty()) {
+            acc.last().add(str)
+        } else {
+            acc.add(mutableListOf())
         }
+        acc
     }
-    return chunks
-}
