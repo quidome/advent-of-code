@@ -21,3 +21,13 @@ fun String.toIntList(separator: Regex): List<Int> =
     this
         .split(separator)
         .map { it.toInt() }
+
+fun String.toPairOfInt(separator: Regex): Pair<Int, Int> =
+    this
+        .split(separator)
+        .let { Pair(it[0].toInt(), it[1].toInt()) }
+
+fun String.toPairOfInt(separator: String = " "): Pair<Int, Int> =
+    this
+        .split(separator)
+        .let { Pair(it[0].toInt(), it[1].toInt()) }
